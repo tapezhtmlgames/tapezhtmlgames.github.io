@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://play.gamepix.com/stickman-fighter-epic-battle/embed?sid=e4515 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./Stickman Fighter Epic Battle_files/64038034.js.download"></script><script type="text/javascript" async="" src="./Stickman Fighter Epic Battle_files/js"></script><script src="./Stickman Fighter Epic Battle_files/core-en.js.download" charset="UTF-8"></script><script async="" src="./Stickman Fighter Epic Battle_files/gtm.js.download"></script><script>function gpxGetCookieKeys () {
+                if (!document.cookie) return [];
+                var _keys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, '').split(/\s*(?:\=[^;]*)?;\s*/);
+                for (var _index = 0; _index < _keys.length; _index++) {
+                    _keys[_index] = decodeURIComponent(_keys[_index]);
+                }
+                return _keys;
+            }
+            function gpxGetCookie (cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) === ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) === 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return null;
+            }
+            function gpxSetCookie (name, value, expirationDays = 10000, path="/", domain = location.host) {
+                var expirationDate = new Date();
+                expirationDate.setTime(expirationDate.getTime() + (expirationDays*24*60*60*1000));
+                document.cookie = name+"="+value+";path="+path+"; expires="+expirationDate.toUTCString()+";SameSite=None;Secure;domain="+domain;
+            }
+            function gpxDeleteCookie (name, path="/", domain = location.host) { document.cookie = name+"=;path="+path+";expires=Thu, 01 Jan 1970 00:00:01 GMT;SameSite=None;Secure;domain="+domain};
+
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+            let getLang = function(){
+				let lang;
+				try {
+					lang = getParameterByName('lang') && getParameterByName('lang').split('-')[0];
+					if (!lang) {
+						lang = navigator.languages && navigator.languages.length
+							? navigator.languages[0].substring(0, 2)
+							: navigator.language.substring(0, 2);
+					}
+                } catch {
+					lang = 'en'
+                }
+				return lang || 'en'
+            }
+
+            var ref = (document.referrer && document.referrer.match(/:\/\/(.[^/]+)/)[1]) || 'direct';
+            // var namespace = location.pathname && location.pathname.split('/').length > 1 ? location.pathname.split('/')[1] : null;
+            // if(namespace) {
+            //     var link = !!document.querySelector("link[rel='canonical']") ? document.querySelector("link[rel='canonical']") : document.createElement('link');
+            //     link.setAttribute('rel', 'canonical');
+            //     link.setAttribute('href', 'https://www.gamepix.com/play/' + namespace + '/');
+            //     document.head.appendChild(link);
+            // }
+
+            //cookie policy enabler, disable cookie policy for some sid
+            let policyExcludedSid = ['110665', '110783']
+            if(policyExcludedSid.indexOf(getParameterByName('sid')) == -1){
+				let lang_id = getLang()
+					, policy_id;
+
+				switch (lang_id) {
+					case 'it':
+						policy_id = 78224144;
+						break;
+					case 'fr':
+						policy_id = 59659549;
+						break;
+					case 'de':
+						policy_id = 40043440;
+						break;
+					case 'es':
+						policy_id = 24193842;
+						break;
+					case 'pt':
+						policy_id = 39895310
+						lang_id = 'pt-BR';
+						break;
+					default:
+						lang_id = 'en';
+						policy_id = 64038034
+						break
+				}
+
+				var _iub = _iub || [];
+				_iub.csConfiguration = {
+					"storage":{
+						"type":"local_storage"
+					},
+					"consentOnContinuedBrowsing": false,
+					"ccpaAcknowledgeOnDisplay": true,
+					"googleAdditionalConsentMode":true,
+					"newConsentAtVendorListUpdate":0,
+					"askConsentAtCookiePolicyUpdate":true,
+					"whitelabel": false,
+					"lang": lang_id,
+					"siteId": 1944774,
+					"enableTcf":true,
+					"enableFadp": true,
+					"enableLgpd": true,
+					"enableUspr": true,
+					"countryDetection": true,
+					"enableRemoteConsent": true,
+					"enableCMP": true,
+					"tcfVersion": 2,
+					// "perPurposeContent":true,
+					// "preferenceCookie": {
+					//     "expireAfter": 1
+					// },
+					"cookiePolicyId": policy_id,
+					// "isTCFConsentGlobal": false,
+					"banner": {
+						"position": "float-bottom-center",
+						// "acceptButtonDisplay": true,
+						// "customizeButtonDisplay": true,
+						// "closeButtonDisplay": false
+						"acceptButtonDisplay": true,
+						"customizeButtonDisplay": true,
+						"closeButtonDisplay": false,
+						"applyStyles": false
+					}
+				};
+				window['gtag_enable_tcf_support'] = true;
+
+				// let patchedIubenda = gpxGetCookie('ptcIub');
+				// if(!patchedIubenda){
+				// 	let cookiesKeys = gpxGetCookieKeys();
+				// 	gpxDeleteCookie('ptc_iub', '/', 'gamepix.com');
+				// 	for(let c of cookiesKeys){
+				// 		if(c.indexOf("euconsent-v2") > -1 || c.indexOf("_iub") > -1){
+				// 			gpxDeleteCookie(c, '/', 'gamepix.com');
+				// 			gpxDeleteCookie(c, '/', 'play.gamepix.com');
+				// 		}
+				// 	}
+				// 	//set Iubenda patched cookie for 1 day
+				// 	gpxSetCookie("ptcIub","true", 7, '/', "gamepix.com");
+				// }
+				var iubendaSyncStubScript = document.querySelector("script[src='//cs.iubenda.com/sync/1944774.js']") ? document.querySelector("script[src='//cs.iubenda.com/sync/1944774.js']") : document.createElement('script');
+				iubendaSyncStubScript.setAttribute('src', '//cs.iubenda.com/sync/1944774.js');
+				iubendaSyncStubScript.setAttribute('type', 'text/javascript');
+				document.head.appendChild(iubendaSyncStubScript);
+
+				var iubendaTcfStubStubScript = document.querySelector("script[src='//cdn.iubenda.com/cs/tcf/stub-v2.js']") ? document.querySelector("script[src='//cdn.iubenda.com/cs/tcf/stub-v2.js']") : document.createElement('script');
+				iubendaTcfStubStubScript.setAttribute('src', '//cdn.iubenda.com/cs/tcf/stub-v2.js');
+				iubendaTcfStubStubScript.setAttribute('type', 'text/javascript');
+				document.head.appendChild(iubendaTcfStubStubScript);
+
+				var iubendaSafeTcfScript = document.querySelector("script[src='//cdn.iubenda.com/cs/tcf/safe-tcf-v2.js']") ? document.querySelector("script[src='//cdn.iubenda.com/cs/tcf/safe-tcf-v2.js']") : document.createElement('script');
+				iubendaSafeTcfScript.setAttribute('src', '//cdn.iubenda.com/cs/tcf/safe-tcf-v2.js');
+				iubendaSafeTcfScript.setAttribute('type', 'text/javascript');
+				document.head.appendChild(iubendaSafeTcfScript);
+
+				var iubendaCcpaStubScript = document.querySelector("script[src='//cdn.iubenda.com/cs/gpp/stub.js']") ? document.querySelector("script[src='//cdn.iubenda.com/cs/gpp/stub.js']") : document.createElement('script');
+				iubendaCcpaStubScript.setAttribute('src', '//cdn.iubenda.com/cs/gpp/stub.js');
+				iubendaCcpaStubScript.setAttribute('type', 'text/javascript');
+				document.head.appendChild(iubendaCcpaStubScript);
+
+				var iubendaCsSript = document.querySelector("script[src='//cdn.iubenda.com/cs/iubenda_cs.js']") ? document.querySelector("script[src='//cdn.iubenda.com/cs/iubenda_cs.js']") : document.createElement('script');
+				iubendaCsSript.setAttribute('src', '//cdn.iubenda.com/cs/iubenda_cs.js');
+				iubendaCsSript.setAttribute('charset', 'UTF-8');
+				iubendaCsSript.setAttribute('type', 'text/javascript');
+				iubendaCsSript.setAttribute('async', 'async');
+				document.head.appendChild(iubendaCsSript);
+            }
+
+
+            var mainColor = "#0e385b";
+            if(getParameterByName('mainColor')){
+                mainColor = "#" + getParameterByName('mainColor');
+                if(mainColor == "#fff" || mainColor == "#ffffff"){
+                    mainColor = "#000000"
+                }
+            };
+
+                //append loader color and html page color
+            var colorStyle = document.createElement("style");
+            colorStyle.innerHTML = ".gpx-loader { color:"+mainColor+" !important; }";
+            document.getElementsByTagName("head")[0].appendChild(colorStyle);</script><script src="./Stickman Fighter Epic Battle_files/1944774.js.download" type="text/javascript"></script><script src="./Stickman Fighter Epic Battle_files/stub-v2.js.download" type="text/javascript"></script><script src="./Stickman Fighter Epic Battle_files/safe-tcf-v2.js.download" type="text/javascript"></script><script src="./Stickman Fighter Epic Battle_files/stub.js.download" type="text/javascript"></script><script src="./Stickman Fighter Epic Battle_files/iubenda_cs.js.download" charset="UTF-8" type="text/javascript" async="async"></script><style>.gpx-loader { color:#0e385b !important; }</style><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+				new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayerGPX','GTM-K7CPNRZ');</script><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="robots" content="noindex"><meta name="viewport" content="height=device-height,initial-scale=1,width=device-width,maximum-scale=1,user-scalable=no,minimal-ui,viewport-fit=cover"><meta name="mobile-web-app-capable" content="yes"><script async="" src="./Stickman Fighter Epic Battle_files/f.txt"></script><script>// Create Google tag
+            window.googletag = {};
+            googletag.cmd = googletag.cmd || [];</script><link rel="icon" href="https://play.gamepix.com/player/favicon.ico"><link rel="stylesheet" href="./Stickman Fighter Epic Battle_files/style.css"><link rel="stylesheet" href="./Stickman Fighter Epic Battle_files/style(1).css"><link href="./Stickman Fighter Epic Battle_files/css" rel="stylesheet"><script src="./Stickman Fighter Epic Battle_files/safari-nomodule-fix.js.download" type="module"></script><script defer="defer" type="module" src="./Stickman Fighter Epic Battle_files/app.js.download"></script><link href="./Stickman Fighter Epic Battle_files/app.css" rel="stylesheet"><script defer="defer" src="./Stickman Fighter Epic Battle_files/app-legacy.js.download" nomodule=""></script><meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9wSqI5i0iwGdf6L1CERNdmsTPgVu44ewj8QxTBYgsv1LCPUVF7YmWOvTappqB1139jAymxUW/RO8zmMqo4zlAAAAACNeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A+d7vJfYtay4OUbdtRPZA3y7bKQLsxaMEPmxgfhBGqKXNrdkCQeJlUwqa6EBbSfjwFtJWTrWIioXeMW+y8bWAgQAAACTeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><script src="./Stickman Fighter Epic Battle_files/f(1).txt" async=""></script><title>Stickman Fighter Epic Battle</title><link data-vue-meta="1" rel="canonical" href="https://www.gamepix.com/play/stickman-fighter-epic-battle/"><script src="./Stickman Fighter Epic Battle_files/tcf-v2-0.27.3.js.download" charset="UTF-8"></script><style type="text/css">.iubenda-alert{position:fixed!important;top:0!important;left:0!important;width:100%!important;height:100%!important;z-index:2147483647!important;background-color:rgba(0,0,0,.5)!important;font-family:"Helvetica Neue",-apple-system,sans-serif!important;display:flex!important;align-items:center!important;justify-content:center!important;font-size:16px!important}.iubenda-alert *{font-size:100%!important;width:auto!important;-webkit-appearance:none!important;-moz-appearance:none!important;appearance:none!important;background:0 0!important;box-sizing:border-box!important;-webkit-tap-highlight-color:transparent!important;backface-visibility:hidden!important;font-family:-apple-system,sans-serif!important;text-decoration:none!important;color:currentColor!important;background-attachment:scroll!important;background-color:transparent!important;background-image:none!important;background-position:0 0!important;background-repeat:repeat!important;border:0!important;border-color:#000!important;border-color:currentColor!important;border-radius:0!important;border-style:none!important;border-width:medium!important;bottom:auto!important;clear:none!important;clip:auto!important;counter-increment:none!important;counter-reset:none!important;direction:inherit!important;float:none!important;font-style:inherit!important;font-variant:normal!important;font-weight:inherit!important;height:auto!important;left:auto!important;letter-spacing:normal!important;line-height:inherit!important;list-style-type:inherit!important;list-style-position:outside!important;list-style-image:none!important;margin:0!important;max-height:none!important;max-width:none!important;min-height:0!important;min-width:0!important;opacity:1;overflow:visible!important;padding:0!important;position:static!important;quotes:"" ""!important;right:auto!important;table-layout:auto!important;text-align:left!important;text-indent:0!important;text-transform:none!important;top:auto!important;unicode-bidi:normal!important;vertical-align:baseline!important;visibility:inherit!important;white-space:normal!important;width:auto!important;word-spacing:normal!important;z-index:auto!important;background-origin:padding-box!important;background-origin:padding-box!important;background-clip:border-box!important;background-size:auto!important;-o-border-image:none!important;border-image:none!important;border-radius:0!important;border-radius:0!important;box-shadow:none!important;-moz-column-count:auto!important;column-count:auto!important;-moz-column-gap:normal!important;column-gap:normal!important;-moz-column-rule:medium none #000!important;column-rule:medium none #000!important;-moz-column-span:none!important;column-span:none!important;-moz-column-width:auto!important;column-width:auto!important;font-feature-settings:normal!important;overflow-x:visible!important;overflow-y:visible!important;-webkit-hyphens:manual!important;hyphens:manual!important;perspective:none!important;perspective-origin:50% 50%!important;text-shadow:none!important;transition:all 0s ease 0s!important;transform:none!important;transform-origin:50% 50%!important;transform-style:flat!important;word-break:normal!important}.iubenda-alert .iubenda-alert-dialog{margin:16px!important;width:100%!important;border-radius:6px!important;background-color:#111!important;color:#f4f4f4!important}@media (min-width:320px){.iubenda-alert .iubenda-alert-dialog{width:320px!important}}.iubenda-alert .iubenda-alert-dialog .iubenda-alert-dialog-content{padding:24px 24px 0!important}.iubenda-alert .iubenda-alert-dialog .iubenda-alert-dialog-buttons{padding:24px!important;display:flex!important}.iubenda-alert .iubenda-alert-dialog .iubenda-alert-dialog-buttons button{flex:1!important}.iubenda-alert button{flex:1!important;-webkit-appearance:none!important;-moz-appearance:none!important;appearance:none!important;margin:4px!important;padding:8px 16px!important;border-radius:64px!important;cursor:pointer!important;font-weight:700!important;font-size:100%!important;border:1px solid transparent!important;color:#fff;text-align:center!important}.iubenda-alert button:hover{border-color:currentColor!important}.iubenda-alert button.iubenda-button-confirm{background-color:#0073ce!important}.iubenda-alert button.iubenda-button-cancel{background-color:rgba(255,255,255,.1)!important}</style></head><body style="height: 607px;"><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K7CPNRZ" height="0" width="0" style="display:none;visibility:hidden"></iframe><strong>We're sorry but this player doesn't work without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app" style="background-color: rgb(14, 56, 91);"><div data-v-3fe1a296="" id="ui" width="100%" height="100%" style="top: 0px; left: 0px;"><!----><!----><div data-v-3fe1a296="" id="ui-root" width="100%" height="100%" class="" style="background-color: rgb(14, 56, 91); display: none;"><!----><!----><div data-v-3fe1a296="" class="gpxUI-game-info zoomable" style="display: none;"><div data-v-3fe1a296="" class="gpxUI-sprite gpxUI-rotate-screen-img"></div><p data-v-3fe1a296="" class="gpxUI-caption-img">Rotate your device</p></div><!----><!----></div></div><!----><!----><!----><div data-v-40e7bda0="" id="gameContainer" width="100%" height="100%" class="game" style="visibility: visible;"><iframe data-v-40e7bda0="" id="game-frame" name="https://play.gamepix.com/stickman-fighter-epic-battle/embed?sid=e4515" frameborder="0" seamless="seamless" width="100%" height="100%" scrolling="no" src="./Stickman Fighter Epic Battle_files/index.html" class=""></iframe></div><!----><div data-v-3995fb24="" id="ycnam"></div></div><a href="https://play.gamepix.com/stickman-fighter-epic-battle/embed?sid=e4515#" id="custom-iub-pref" class="iubenda-advertising-preferences-link" style="color: white; position: absolute; bottom: 0px; right: 10px; font-size: 12px; cursor: default; text-decoration: none; z-index: 1; display: block;"><img width="25px" height="25px" src="./Stickman Fighter Epic Battle_files/cookies.png"></a><iframe name="__tcfapiLocator" style="display: none;" src="./Stickman Fighter Epic Battle_files/saved_resource.html"></iframe><iframe aria-hidden="true" title="GPP Locator" name="__gppLocator" style="display: none;" src="./Stickman Fighter Epic Battle_files/saved_resource(1).html"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7.0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(1).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(2).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(3).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(4).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(5).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(6).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(7).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(8).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(9).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(10).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(11).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(12).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(13).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(14).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><div id="iubenda-cs-banner" class="iubenda-cs-black iubenda-cs-default-floating iubenda-cs-bottom iubenda-cs-center iubenda-cs-slidein iubenda-cs-visible" role="alertdialog" aria-describedby="iubenda-cs-paragraph" aria-labelledby="iubenda-cs-title"><div class="iubenda-cs-container"><div class="iubenda-cs-content" style=""><div class="iubenda-cs-rationale"><button type="button" class="iubenda-cs-close-btn" tabindex="0" role="button" aria-pressed="false" aria-label="Close this notice" style="display:none!important;">×</button><div class="iubenda-banner-content iubenda-custom-content" role="document"><h2 id="iubenda-cs-title">Notice</h2><div id="iubenda-cs-paragraph" class="iubenda-cs-small-margin-top" "="">We and selected third parties collect personal information as specified in the <a href="https://www.iubenda.com/privacy-policy/64038034/legal?an=no&amp;s_ck=false&amp;newmarkup=yes" class="iubenda-privacy-policy-link">privacy policy</a> and use cookies or similar technologies for technical purposes and, with your consent, for other purposes as specified in the <a href="https://www.iubenda.com/privacy-policy/64038034/cookie-policy?an=no&amp;s_ck=false&amp;newmarkup=yes" target="_blank" rel="noopener" class="iubenda-cs-cookie-policy-lnk">cookie policy</a>. <br>With respect to advertising, we and 917  selected <button class="iubenda-vendor-list-link" data-iub-enabled="1">third parties</button>, may use <em>precise geolocation data, and identification through device scanning</em> in order to <em>store and/or access information on a device</em> and process personal data like your usage data for the following <button class="iubenda-advertising-preferences-link">advertising purposes</button>: <em>personalised advertising and content, advertising and content measurement, audience research and services development.</em><br>You can freely give, deny, or withdraw your consent at any time by accessing the preferences panel. If you give consent, it will be valid only in this domain. Denying consent may make related features unavailable.<br><br>Use the “Accept” button to consent. </div></div><div class="iubenda-cs-counter" style="display: none;">Press again to continue NaN/NaN</div><div class="iubenda-cs-opt-group" style="color:#000!important;"><div class="iubenda-cs-opt-group-custom"><button class="iubenda-cs-customize-btn" tabindex="0" role="button" aria-pressed="false">Learn more and customize</button></div><div class="iubenda-cs-opt-group-consent"><button class="iubenda-cs-accept-btn iubenda-cs-btn-primary" tabindex="0" role="button" aria-pressed="false">Accept</button></div></div></div></div></div></div><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(15).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><iframe src="./Stickman Fighter Epic Battle_files/iframe_bridge-1.7(16).0.html" aria-hidden="true" title="Iframe bridge" style="width:0px; height:0px; display:none; visibility:hidden"></iframe><div id="game-loaded" style="width: 1px; height: 1px;"></div></body></html>

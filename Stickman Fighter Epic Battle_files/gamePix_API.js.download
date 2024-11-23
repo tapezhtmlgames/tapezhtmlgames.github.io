@@ -1,0 +1,190 @@
+//V6.5 gp + rw mute
+if(typeof gameConfig.AdsWaitForInput === "undefined") gameConfig.AdsWaitForInput = true;	//handle default to support old index-config with the new SDK
+if(typeof gameConfig.gameHasRewarded !== "boolean") gameConfig.gameHasRewarded = true;	//handle default to support old index-config with the new rewarded. Default is true for gamePix as it is time based
+(function(){
+	var eventToFire = {};
+	window.eventToFire = eventToFire;
+	eventToFire.events = {};
+	eventToFire.version = 4;
+	eventToFire.registerEvent = function(eventName, callback, staticArgs){
+		if(typeof eventName !== 'string') return false;
+		if(typeof callback !== 'function' && typeof callback !== 'string') return false;
+		if(typeof this.events[eventName] === 'undefined')	this.events[eventName] = [];
+		this.events[eventName].push({"func":callback, "staticArgs":staticArgs});
+		return true;
+	};
+	if(typeof ce7 !== "function"){
+		var ce7_lut = [],ce7 = function(){
+			if(typeof window.crypto==="object" && typeof window.crypto.getRandomValues==="function"){var rnd=window.crypto.getRandomValues(new Uint32Array(4)),d0=rnd[0],d1=rnd[1],d2=rnd[2],d3=rnd[3] }else{var d0 = Math.random()*0x100000000>>>0,d1 = Math.random()*0x100000000>>>0,d2 = Math.random()*0x100000000>>>0,d3 = Math.random()*0x100000000>>>0;}
+			return ce7_lut[d0&0xff]+ce7_lut[d0>>8&0xff]+ce7_lut[d0>>16&0xff]+ce7_lut[d0>>24&0xff]+'-'+
+			ce7_lut[d1&0xff]+ce7_lut[d1>>8&0xff]+'-'+ce7_lut[d1>>16&0x0f|0x40]+ce7_lut[d1>>24&0xff]+'-'+
+			ce7_lut[d2&0x3f|0x80]+ce7_lut[d2>>8&0xff]+'-'+ce7_lut[d2>>16&0xff]+ce7_lut[d2>>24&0xff]+
+			ce7_lut[d3&0xff]+ce7_lut[d3>>8&0xff]+ce7_lut[d3>>16&0xff]+ce7_lut[d3>>24&0xff];
+		};for(var i=0; i<256; i++){ce7_lut[i] = (i<16?'0':'')+(i).toString(16);}
+	}
+	eventToFire.fireEvent = function(eventName){
+		if(typeof eventName !== 'string') return false;
+		var eventHandlersToCall = Object.keys(this.events).filter(function(v){var f=v.replace(/\./g, '\\\.'); if(f.indexOf('*')!==-1) f = f.split('*')[0]+".*"; return (new RegExp('^'+f+"$").test(eventName))}).sort(function(a,b){return (b===eventName)?1:(a===eventName)?-1:b.replace('*','').length-a.replace('*','').length;}),eventUID=ce7();
+		if(eventHandlersToCall.length === 0) return false;
+		for(var i=0; i<eventHandlersToCall.length;i++){
+			for(var f=0; f<this.events[eventHandlersToCall[i]].length;f++){
+				var func = this.events[eventHandlersToCall[i]][f]["func"];
+				if(typeof func === "string") if(typeof window[func] === "function") func = window[func]; else continue;
+				var args = [].slice.call(arguments, 1);
+				args.push(this.events[eventHandlersToCall[i]][f]["staticArgs"]);
+				func.apply({eventName:eventName,eventUID:eventUID,eventHandler:eventHandlersToCall[i],eventToFire:this},args);
+			}
+		}
+		return true;
+	};
+
+	eventToFire.getAllEvent = function(){
+		return this.events;
+	};
+
+	//compatibility playzool/shell
+	window.registerEvent = function(eventName, callback, args){
+		window.eventToFire.registerEvent(eventName, callback, args);
+	}
+	window.fireEvent = function(eventName,args){
+		window.eventToFire.fireEvent(eventName,args);
+	}
+}())
+
+window.eventToFire.registerEvent("c2:achievement_unlock", function(){if(typeof GamePix !== "undefined") GamePix.happyMoment(); });
+window.eventToFire.registerEvent("c2:achievement:unlock", function(){if(typeof GamePix !== "undefined") GamePix.happyMoment(); });
+
+jQuery(document).ready(function(){
+	GamePix.loaded().then(function(res) {
+		GamePix.interstitialAd().then(function (res) {
+			loadGame();
+		});
+		if(gameConfig.gameHasRewarded) preloadReward();
+	});
+	
+	function onVisibilityChanged() {
+		if(typeof cr_setSuspended === "function") cr_setSuspended(!!(document.hidden || document.mozHidden || document.webkitHidden || document.msHidden));
+	};
+
+	document.addEventListener("visibilitychange", onVisibilityChanged, false);
+	document.addEventListener("mozvisibilitychange", onVisibilityChanged, false);
+	document.addEventListener("webkitvisibilitychange", onVisibilityChanged, false);
+	document.addEventListener("msvisibilitychange", onVisibilityChanged, false);
+
+});
+
+var adsIsQueued = false, rewardedIsReady = true, rewardedIsLoading = false, rewardedIsRequested = false, c2CB = {onSuccess:[], onFail:[]}, C2cbOnVideoDidAppear="", C2cbOnVideoDidDisappear ="", C2cbOnFail ="", firstLayout=true;
+
+function queueAds(){
+	adsIsQueued = true;
+	if(!gameConfig.AdsWaitForInput) unQueueAds();
+}
+
+function unQueueAds(){
+	adsIsQueued = false;
+	cr_setSuspended(true);
+	GamePix.interstitialAd().then(function (res) {
+		setTimeout(function(){ cr_setSuspended(false); }, 60);
+	});
+}
+
+function onTouchEvent(){
+	if(rewardedIsRequested) return false;
+	if(adsIsQueued){
+		if($("#preroll_play_bg, #preroll_play_over_bg, #preroll_play_frame").length){
+			$("#preroll_play_bg, #preroll_play_over_bg, #preroll_play_frame").remove();
+			if(typeof cr_setSuspended === "function") cr_setSuspended(false);
+			$("#c2canvas").show();
+		}
+		unQueueAds();
+	}
+}
+
+document.addEventListener("mouseup", onTouchEvent, false);
+document.addEventListener("touchend", onTouchEvent, false);
+
+
+function c2LayoutChange(state,name,force){
+	if(state === "out"){
+		firstLayout = false;
+		
+	}else{ // in
+		if(name.toLowerCase() === "gamemain"){
+			try{
+				GamePix.updateLevel(JSON.parse(c2_callFunction("getGameInfo", [], true)).level);
+			}catch(e){
+				// Shell too old
+			}
+		}
+	}
+	if(state === "out" && name.toLowerCase() === "gameover"){
+		if(gameConfig.debugMode) console.log("(game break)");
+		queueAds();
+	}
+}
+
+function gameOver(score,win,scoreObj){
+	goscore=Math.max(0, score);
+	if(typeof scoreObj === "object" && typeof scoreObj.score === "number") goscore = Math.max(0, scoreObj.score);
+	GamePix.updateScore(goscore);
+};
+
+function loadGame(){			
+	if(typeof cr_createRuntime === "function") cr_createRuntime("c2canvas");
+	else setTimeout(loadGame, 500);
+}
+
+function preloadReward(){
+	if(rewardedIsLoading || rewardedIsReady) return true;
+	rewardedIsLoading = true;
+	setTimeout(function(){rewardedIsLoading = false; rewardedIsReady = true;}, gameConfig.timeBetweenReward*1000);
+}
+
+function prepareTJEvent(eventName, forceParam, C2cbOnReadyStateTrue, C2cbOnReadyStateFalse, repeat, retry){
+	if(typeof C2cbOnReadyStateTrue === "string" && C2cbOnReadyStateTrue !== "" && c2CB.onSuccess.indexOf(C2cbOnReadyStateTrue)) c2CB.onSuccess.push(C2cbOnReadyStateTrue);
+	if(typeof C2cbOnReadyStateFalse === "string" && C2cbOnReadyStateFalse !== "" && c2CB.onFail.indexOf(C2cbOnReadyStateFalse)) c2CB.onFail.push(C2cbOnReadyStateFalse);
+	preloadReward();
+}
+
+function isIVAvailable(eventName){
+	return (rewardedIsReady) ? "1" : "0";
+}
+
+function isTJEventReady(eventName){
+	return isIVAvailable(eventName);
+}
+
+function promptTJEvent(){return "0";}
+
+function launchTJEvent(eventName, C2cbOnFail, C2cbOnVideoDidAppear, C2cbOnVideoDidDisappear, forceReload, fallBackOnOfferWall){
+	if(isTJEventReady(eventName) !== "0"){
+		window.C2cbOnFail = C2cbOnFail;
+		window.C2cbOnVideoDidAppear = C2cbOnVideoDidAppear;
+		window.C2cbOnVideoDidDisappear = C2cbOnVideoDidDisappear;
+		if(gameConfig.debugMode) console.log("Launch rewarded");
+		rewardedIsRequested=true;
+		cr_setSuspended(true);
+		GamePix.rewardAd().then(function (res) {
+			if (res.success) {
+				if(gameConfig.debugMode) console.log("Rewarded succeded");
+				c2_callFunction(C2cbOnVideoDidAppear, ["1"]);
+				setTimeout(function(){	c2_callFunction(window.C2cbOnVideoDidDisappear, ["1"]);	}, 70);
+				setTimeout(function(){	cr_setSuspended(false);	}, 80);
+				rewardedIsRequested=false;
+			} else {
+				if(gameConfig.debugMode) console.log("Rewarded failed");
+				c2_callFunction(window.C2cbOnFail, ["0"]);
+				c2_callFunction(window.C2cbOnVideoDidDisappear, ["0"]);
+				setTimeout(function(){	cr_setSuspended(false);	}, 80);
+				rewardedIsRequested=false;
+			}
+		});
+	}else{
+		if(gameConfig.debugMode) console.log("Can't launch rewarded");
+		c2_callFunction(window.C2cbOnFail, ["0"]);
+		c2_callFunction(window.C2cbOnVideoDidDisappear, ["0"]);
+	}
+	rewardedIsReady = false;
+	setTimeout(function(){	preloadReward();	}, 250);
+	return;
+}
