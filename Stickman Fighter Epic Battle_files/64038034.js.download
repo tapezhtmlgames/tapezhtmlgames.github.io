@@ -1,8 +1,0 @@
-_iub.csRC = { consApiKey: 'sfkwI2JUoGSEU7pB3WFAoxTihUwQtuX3' }
-_iub.csEnabled = true;
-_iub.csPurposes = [4,5,2,1,"sh","s"];
-_iub.cpUpd = 1712764030;
-_iub.csT = 2.0;
-_iub.googleConsentModeV2 = true;
-_iub.totalNumberOfProviders = 137;
-
