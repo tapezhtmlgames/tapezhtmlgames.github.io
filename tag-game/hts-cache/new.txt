@@ -1,0 +1,3 @@
+date	size'/'remotesize	flags(request:Update,Range state:File response:Modified,Chunked,gZipped)	statuscode	status ('servermsg')	MIME	Etag|Date	URL	localfile	(from URL)
+21:00:51	5254/5254	---M-Z	404	error ('Not%20Found')	text/html	etag:W/%2264d39a40-24a3%22	https://abinbins.github.io/robots.txt		(from )
+21:00:52	1558/1558	---M-Z	200	added ('OK')	text/html	etag:W/%22653dbbbe-616%22	https://abinbins.github.io/a3/tag/	C:/Users/alimancrescent.org.SARAH/Downloads/tag-game/abinbins.github.io/a3/tag/index.html	(from )
